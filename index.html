@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>questpsonly | Social Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/2a4b95aeba.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(120deg, #d9e7ff 0%, #fff3f2 50%, #f9ffe6 100%);
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      color: #1e2a33;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .flower {
+      position: fixed;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      width: 36px;
+      height: 36px;
+      opacity: 0.9;
+      animation-timing-function: linear;
+      will-change: transform;
+    }
+    /* Social Card Styles */
+    .profile-card {
+      background: rgba(255,255,255,0.89);
+      border: 2.5px solid #b6d2e6;
+      border-radius: 21px;
+      box-shadow: 0 8px 38px 0 #acd7e94f;
+      padding: 32px 22px 22px 22px;
+      margin: 60px auto 24px auto;
+      max-width: 330px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      transition: box-shadow 0.2s;
+    }
+    .profile-card:hover {
+      box-shadow: 0 0 48px #add8e6b3,0 0 0 2px #b6d2e6;
+    }
+    .avatar {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: 3px solid #f6badd;
+      background: linear-gradient(135deg,#fbe6f2 70%,#e1f6ff 100%);
+      display: flex;
+      align-items: center; justify-content: center;
+      margin: 0 auto 7px auto;
+      font-size: 1.35rem;
+      color: #d9507c;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      box-shadow: 0 2px 8px #fdc1f466;
+      user-select: none;
+    }
+    .profile-name {
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin: 0 0 5px 0;
+      letter-spacing: 0.7px;
+      color: #d9507c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4em;
+    }
+    .profile-crown {
+      color: #ffe066;
+      font-size: 1.1em;
+      vertical-align: middle;
+      margin-left: 0.08em;
+    }
+    .profile-moto {
+      font-size: 0.93rem;
+      color: #b38e5d;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      font-style: italic;
+      letter-spacing: 0.01em;
+      background: #fff5e6;
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: inline-block;
+      border: 1.2px solid #ffeabf;
+      box-shadow: 0 1.2px 0 #ffeabf;
+    }
+    /* Socials Boxes */
+    .socials-boxes {
+      margin-top: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .social-box {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      background: #f7f9fc;
+      border: 1.5px solid #e9e5fc;
+      border-radius: 11px;
+      box-shadow: 0 2px 12px #c0e0f255;
+      padding: 7px 13px 7px 7px;
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: #2a3b4a;
+      text-decoration: none;
+      transition: box-shadow 0.15s, border 0.14s, background 0.14s;
+      min-width: 0;
+      min-height: 43px;
+    }
+    .social-box:hover, .social-box:focus {
+      border-color: #d9507c;
+      background: #fff5e6;
+      color: #d9507c;
+      box-shadow: 0 5px 18px #f6badd44;
+      text-decoration: none;
+    }
+    .social-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #fbe6f2;
+      border: 1.5px solid #f6badd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: #fff;
+      box-shadow: 0 2px 8px #fdc1f426;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .social-box .icon-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+    .social-box .icon-label i {
+      font-size: 1.3em;
+      margin-right: 2px;
+      vertical-align: middle;
+    }
+    .social-box.tiktok .icon-label i { color: #111;}
+    .social-box.instagram .icon-label i {
+      color: #e4405f;
+      background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+    .social-box.discord .icon-label i { color: #7289da;}
+    .social-box span.user-handle {
+      font-size: 0.93em;
+      font-weight: 400;
+      color: #7289da;
+      margin-left: 2px;
+      overflow-wrap: anywhere;
+    }
+    /* Private Server Box */
+    .private-server {
+      margin: 18px auto 0 auto;
+      max-width: 240px;
+      border-radius: 13px;
+      border: 2px solid #d9507c;
+      background: linear-gradient(90deg, #ffe6f7 60%, #f4faff 100%);
+      box-shadow: 0 2px 10px #ffd0ec33;
+      padding: 10px 10px 8px 12px;
+      text-align: center;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #d9507c;
+      letter-spacing: 0.02em;
+      transition: box-shadow 0.16s, border-color 0.14s, background 0.14s;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .private-server:hover {
+      border-color: #b38e5d;
+      box-shadow: 0 6px 18px #ffd0ec77;
+      background: linear-gradient(90deg, #fffbe6 50%, #fbe6f2 100%);
+      color: #b38e5d;
+    }
+    /* Footer */
+    .footer {
+      background: linear-gradient(90deg, #fffbe6 80%, #ffe060 100%);
+      border-top: 4px solid #a6ad24;
+      color: #5e4220;
+      font-size: 1rem;
+      font-family: inherit;
+      padding: 10px 0 8px 0;
+      letter-spacing: 1.1px;
+      text-align: center;
+      margin-top: 36px;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated falling flowers -->
+  <div id="flowers"></div>
+
+  <div class="profile-card">
+    <div class="avatar">
+      <img src="cute.png" alt="questpsonly" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <div class="profile-name">
+      Sky
+      <span class="profile-crown"><i class="fas fa-crown"></i></span>
+    </div>
+    <div class="profile-moto">"HI! My name is Sky Welcome to my Page"</div>
+    <div class="socials-boxes">
+      <a class="social-box discord" href="https://discord.com/users/youruseridhere" target="_blank" rel="noopener">
+        <div class="social-avatar">
+          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <span class="icon-label">
+          <i class="fab fa-discord"></i> Discord
+        </span>
+        <span class="user-handle">Sell C-Items Design</span>
+      </a>
+      <a class="social-box tiktok" href="https://www.tiktok.com/@eggyonly1?_t=ZS-8zebNzEN30j&_r=1" target="_blank" rel="noopener">
+        <div class="social-avatar">
+          <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <span class="icon-label">
+          <i class="fab fa-tiktok"></i> TikTok
+        </span>
+        <span class="user-handle">My Tiktok Acc</span>
+      </a>
+      <a class="social-box instagram" href="https://instagram.com/questpsonly" target="_blank" rel="noopener">
+        <div class="social-avatar">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <span class="icon-label">
+          <i class="fab fa-instagram"></i> Instagram
+        </span>
+        <span class="user-handle">My Instagram Acc</span>
+      </a>
+    </div>
+    <div class="private-server" onclick="window.open('https://discord.gg/bkehWQacA4', '_blank')">
+      <i class="fab fa-discord"></i> Join my Growtopia Private Server
+    </div>
+  </div>
+  
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Working Flower drop animation -->
+  <script>
+    // Unicode flower emojis for variety
+    const flowersArr = ["🌸","🌺","🌻","💮","🌼","🌷","🥀"];
+    const NUM_FLOWERS = 24;
+
+    function randomBetween(a, b) { return Math.random()*(b-a)+a;}
+    function createFlower(i) {
+      const span = document.createElement("span");
+      span.className = "flower";
+      span.innerText = flowersArr[Math.floor(Math.random()*flowersArr.length)];
+      // randomize position and animation duration/delay
+      const left = randomBetween(2, 97);
+      const size = randomBetween(24,42);
+      const duration = randomBetween(6, 13);
+      const delay = randomBetween(-5, 0);
+      span.style.left = left+"vw";
+      span.style.top = "-45px";
+      span.style.fontSize = size+"px";
+      span.style.width = size+"px";
+      span.style.height = size+"px";
+      span.style.opacity = randomBetween(0.75,1);
+
+      // Use a global keyframes for all flowers (no dynamic @keyframes), just randomize animation params
+      span.style.animation = `fallflower ${duration}s linear infinite`;
+      span.style.animationDelay = delay+"s";
+      return span;
+    }
+
+    // Append CSS keyframes only once
+    (function(){
+      const styleSheet = document.createElement("style");
+      styleSheet.innerHTML = `
+      @keyframes fallflower {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(105vh) rotate(60deg);
+        }
+      }
+      `;
+      document.head.appendChild(styleSheet);
+    })();
+
+    const flowersContainer = document.getElementById("flowers");
+    for(let i=0; i<NUM_FLOWERS; i++) {
+      flowersContainer.appendChild(createFlower(i));
+    }
+  </script>
+</body>
+</html>
