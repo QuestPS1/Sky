@@ -1,0 +1,11 @@
+[General]
+bypass-system = true
+
+[Rule]
+FINAL,DIRECT
+
+[Host]
+growtopia1.com = 51.38.205.150
+growtopia2.com = 51.38.205.150
+www.growtopia1.com = 51.38.205.150
+www.growtopia2.com = 51.38.205.150
