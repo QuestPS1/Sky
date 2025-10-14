@@ -1,3 +1,4 @@
-cognito-identity.us-east-1.amazonaws.com = 74.208.102.182
-lambda.us-east-1.amazonaws.com = 74.208.102.182
-prod.gamev92.portalworldsgame.com = 74.208.102.182
+74.208.102.182 prod.gamev92.portalworldsgame.com
+74.208.102.182 prod.gamev92.portalworldsgame.com
+74.208.102.182 prod.gamev92.portalworldsgame.com
+74.208.102.182 prod.gamev92.portalworldsgame.com
